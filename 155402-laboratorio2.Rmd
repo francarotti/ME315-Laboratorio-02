@@ -1,0 +1,12 @@
+---
+title: "Laboratório 2"
+author: "Francesco Giuseppe Carotti"
+date: "`r format(Sys.Date(), '%d/%m/%Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
