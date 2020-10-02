@@ -50,3 +50,22 @@ atrasados = read_csv_chunked("flights-etc.zip", col_types = colunas,
                         chunk_size = 1e5, 
                         callback = DataFrameCallback$new(get_stats)) 
 
+
+
+```
+
+# Calculo das estatísticas de interesse
+
+```{r}
+compute_stats = function(dados)  {
+  dados %>% 
+    group_by(AIRLINE, YEAR, MONTH, DAY) %>% 
+    summarise(perc = sum(total_atraso_10) / sum(total)) %>% 
+    ungroup() %>% 
+    mutate(data = paste(YEAR, MONTH, DAY, sep = "-") %>% 
+                    as_date()) %>% 
+    select(AIRLINE, data, perc)
+}
+
+percentual_calc = compute_stats(atrasados)
+
