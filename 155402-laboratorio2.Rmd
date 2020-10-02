@@ -17,3 +17,36 @@ library(ggplot2)
 library(ggcal)
 ```
 
+
+# Estatísticas suficientes
+
+Para a determinação do percentual de voos atrasados na chegadas em mais de 10 minutos, precisamos apenas do número total de voos e do número total de voos que apresentaram este atraso. 
+
+# Obtenção das estatísticas suficientes
+
+
+```{r}
+
+comp_aereas = c("AA", "DL", "UA", "US")
+
+colunas = cols_only(YEAR = 'i', MONTH = 'i', DAY = 'i',
+                    ARRIVAL_DELAY = 'i', AIRLINE = 'c')
+
+get_stats = function(input, pos) {
+    input %>% 
+      filter(!is.na.data.frame(YEAR),
+             !is.na.data.frame(MONTH),
+             !is.na.data.frame(DAY),
+             !is.na.data.frame(ARRIVAL_DELAY),
+             !is.na.data.frame(AIRLINE),
+             AIRLINE %in% comp_aereas) %>% 
+    group_by(DAY, MONTH, YEAR, AIRLINE) %>% 
+      summarise(total = n(),
+                total_atraso_10 = sum(ARRIVAL_DELAY > 10)) %>% 
+    ungroup()
+}
+
+atrasados = read_csv_chunked("flights-etc.zip", col_types = colunas,
+                        chunk_size = 1e5, 
+                        callback = DataFrameCallback$new(get_stats)) 
+
