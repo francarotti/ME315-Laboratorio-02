@@ -69,12 +69,14 @@ atrasados = read_csv_chunked("flights-etc.zip",
 compute_stats = function(dados)  {
   
   dados %>% 
-    group_by(AIRLINE, YEAR, MONTH, DAY) %>% 
+    mutate(data = paste(YEAR, MONTH, DAY, 
+                        sep = "-") %>% 
+                    as_date()) %>% 
+    group_by(data, AIRLINE) %>% 
     summarise(perc = sum(total_atraso_10) / sum(total)) %>% 
     ungroup() %>% 
-    mutate(data = paste(YEAR, MONTH, DAY, sep = "-") %>% 
-                    as_date()) %>% 
     select(AIRLINE, data, perc)
+  
 }
 
 percentual_calc = compute_stats(atrasados)
