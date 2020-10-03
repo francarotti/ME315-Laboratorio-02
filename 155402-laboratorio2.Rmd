@@ -6,15 +6,19 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
 ```
 
-```{r}
+```{r pacotes}
+
 library(dplyr)
 library(readr)
 library(lubridate)
 library(ggplot2)
 library(ggcal)
+
 ```
 
 
@@ -33,6 +37,7 @@ colunas = cols_only(YEAR = 'i', MONTH = 'i', DAY = 'i',
                     ARRIVAL_DELAY = 'i', AIRLINE = 'c')
 
 get_stats = function(input, pos) {
+  
     input %>% 
       filter(!is.na.data.frame(YEAR),
              !is.na.data.frame(MONTH),
@@ -40,24 +45,26 @@ get_stats = function(input, pos) {
              !is.na.data.frame(ARRIVAL_DELAY),
              !is.na.data.frame(AIRLINE),
              AIRLINE %in% comp_aereas) %>% 
-    group_by(DAY, MONTH, YEAR, AIRLINE) %>% 
+      group_by(DAY, MONTH, YEAR, AIRLINE) %>% 
       summarise(total = n(),
                 total_atraso_10 = sum(ARRIVAL_DELAY > 10)) %>% 
-    ungroup()
+      ungroup()
+  
 }
 
-atrasados = read_csv_chunked("flights-etc.zip", col_types = colunas,
-                        chunk_size = 1e5, 
-                        callback = DataFrameCallback$new(get_stats)) 
-
-
+atrasados = read_csv_chunked("flights-etc.zip", 
+                             col_types = colunas,
+                             chunk_size = 1e5, 
+                             callback = DataFrameCallback$new(get_stats)) 
 
 ```
 
 # Calculo das estatísticas de interesse
 
 ```{r}
+
 compute_stats = function(dados)  {
+  
   dados %>% 
     group_by(AIRLINE, YEAR, MONTH, DAY) %>% 
     summarise(perc = sum(total_atraso_10) / sum(total)) %>% 
@@ -105,4 +112,3 @@ c_UA + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em
 
 c_US + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia no ano de 2015 para a companhia US")
 ```
-
