@@ -33,8 +33,11 @@ Para a determinação do percentual de voos atrasados na chegadas em mais de 10 
 
 comp_aereas = c("AA", "DL", "UA", "US")
 
-colunas = cols_only(YEAR = 'i', MONTH = 'i', DAY = 'i',
-                    ARRIVAL_DELAY = 'i', AIRLINE = 'c')
+colunas = cols_only(YEAR = 'i', 
+                    MONTH = 'i', 
+                    DAY = 'i',
+                    ARRIVAL_DELAY = 'i', 
+                    AIRLINE = 'c')
 
 get_stats = function(input, pos) {
   
