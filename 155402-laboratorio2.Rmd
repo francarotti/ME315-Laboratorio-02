@@ -88,14 +88,17 @@ atrasados %>%
 # Gráfico
 
 ```{r}
+
 pal = scale_fill_gradient(low = "#4575b4",
                           high = "#d73027")
 
 base_calendario = function(stats, cia) {
+  
   meio = stats %>% 
           filter(AIRLINE == cia)
   
-  ggcal(meio$data, meio$perc)
+  ggcal(meio$data, meio$perc) +
+    pal
     
 }
 
