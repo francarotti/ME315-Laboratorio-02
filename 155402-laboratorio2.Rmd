@@ -79,7 +79,9 @@ compute_stats = function(dados)  {
   
 }
 
-percentual_calc = compute_stats(atrasados)
+atrasados %>% 
+  compute_stats() %>% 
+  arrange(AIRLINE)
 
 ```
 
@@ -97,23 +99,28 @@ base_calendario = function(stats, cia) {
     
 }
 
-c_AA = base_calendario(percentual_calc, "AA")
+atrasados %>% 
+  compute_stats() %>% 
+  base_calendario("AA") +
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
+            no ano de 2015 para a companhia AA")
 
-c_DL = base_calendario(percentual_calc, "DL")
+atrasados %>% 
+  compute_stats() %>% 
+  base_calendario("DL") +
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
+            no ano de 2015 para a companhia DL")
 
-c_UA = base_calendario(percentual_calc, "UA")
+atrasados %>% 
+  compute_stats() %>% 
+  base_calendario("UA") +
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
+            no ano de 2015 para a companhia UA")
 
-c_US = base_calendario(percentual_calc, "US")
+atrasados %>% 
+  compute_stats() %>% 
+  base_calendario("US") +
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
+            no ano de 2015 para a companhia US")
 
-```
-
-
-```{r}
-c_AA + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia no ano de 2015 para a companhia AA")
-
-c_DL + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia no ano de 2015 para a companhia DL")
-
-c_UA + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia no ano de 2015 para a companhia UA")
-
-c_US + pal + ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia no ano de 2015 para a companhia US")
 ```
