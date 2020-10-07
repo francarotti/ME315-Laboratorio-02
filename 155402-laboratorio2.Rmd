@@ -61,6 +61,13 @@ atrasados = read_csv_chunked("flights-etc.zip",
                              chunk_size = 1e5, 
                              callback = DataFrameCallback$new(get_stats)) 
 
+atrasados %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE) %>% 
+   scroll_box(width = "100%", 
+              height = "400px")
+
 ```
 
 # Calculo das estatísticas de interesse
@@ -82,7 +89,12 @@ compute_stats = function(dados)  {
 
 atrasados %>% 
   compute_stats() %>% 
-  arrange(AIRLINE)
+  arrange(AIRLINE) %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = "striped", 
+                full_width = FALSE) %>% 
+  scroll_box(width = "100%", 
+             height = "400px")
 
 ```
 
