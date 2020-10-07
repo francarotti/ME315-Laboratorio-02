@@ -118,25 +118,25 @@ base_calendario = function(stats, cia) {
 atrasados %>% 
   compute_stats() %>% 
   base_calendario("AA") +
-    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
-            no ano de 2015 para a companhia AA")
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos \n 
+            para a companhia AA")
 
 atrasados %>% 
   compute_stats() %>% 
   base_calendario("DL") +
-    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
-            no ano de 2015 para a companhia DL")
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos \n 
+            para a companhia DL")
 
 atrasados %>% 
   compute_stats() %>% 
   base_calendario("UA") +
-    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
-            no ano de 2015 para a companhia UA")
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos \n 
+            para a companhia UA")
 
 atrasados %>% 
   compute_stats() %>% 
   base_calendario("US") +
-    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos em cada dia
-            no ano de 2015 para a companhia US")
+    ggtitle("Percentual de atrasos na chegada maiores que 10 minutos \n 
+            para a companhia US")
 
 ```
